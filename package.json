@@ -1,0 +1,46 @@
+{
+  "name": "gulp-bootlint",
+  "version": "0.1.0",
+  "description": "A gulp wrapper for Bootlint, the HTML linter for Bootstrap projects",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tschortsch/gulp-bootlint"
+  },
+  "author": {
+    "name": "Juerg Hunziker",
+    "email": "juerg.hunziker@gmail.com",
+    "url": "http://juerghunziker.ch"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "gulpplugin",
+    "bootlint",
+    "bootstrap",
+    "html",
+    "markup",
+    "code",
+    "style",
+    "validate",
+    "lint",
+    "check",
+    "checker"
+  ],
+  "dependencies": {
+    "gulp-util": "^3.0.0",
+    "bootlint": "^0.8.0",
+    "through2": "^0.6.1"
+  },
+  "devDependencies": {
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/tschortsch/gulp-bootlint/issues"
+  },
+  "homepage": "https://github.com/tschortsch/gulp-bootlint"
+}

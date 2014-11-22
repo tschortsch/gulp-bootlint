@@ -18,6 +18,12 @@
   "files": [
     "index.js"
   ],
+  "main": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "mocha"
+  },
   "keywords": [
     "gulpplugin",
     "bootlint",
@@ -38,6 +44,7 @@
     "chalk": "^0.5.1"
   },
   "devDependencies": {
+    "mocha": "^2.0.1"
   },
   "readmeFilename": "README.md",
   "bugs": {

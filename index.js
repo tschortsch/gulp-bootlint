@@ -18,21 +18,18 @@ var PLUGIN_NAME = 'gulp-bootlint';
 
 function gulpBootlint(options) {
     options = options || {
-        relaxerror: []
+        disabledIds: []
     };
 
-    var stream;
-
     // creating a stream through which each file will pass
-    stream = through.obj(function (file, enc, cb) {
+    var stream = through.obj(function (file, enc, cb) {
         if (file.isNull()) {
-            cb(null, file);
-            return;
+            return cb(null, file);
         }
 
         if (file.isStream()) {
-            cb(new PluginError(PLUGIN_NAME, 'Streaming not supported'));
-            return;
+            this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
+            return cb();
         }
 
         var reporter = function (lint) {
@@ -50,7 +47,7 @@ function gulpBootlint(options) {
             }
         };
 
-        bootlint.lintHtml(file.contents.toString(), reporter, options.relaxerror);
+        bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
         return cb(null, file);
     });

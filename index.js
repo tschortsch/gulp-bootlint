@@ -18,14 +18,13 @@ var PLUGIN_NAME = 'gulp-bootlint';
 
 function gulpBootlint(options) {
     options = options || {
-        stoponerror: false,
         relaxerror: []
     };
 
-    var hardfail = false;
+    var stream;
 
     // creating a stream through which each file will pass
-    var stream = through.obj(function (file, enc, cb) {
+    stream = through.obj(function (file, enc, cb) {
         if (file.isNull()) {
             cb(null, file);
             return;
@@ -37,25 +36,21 @@ function gulpBootlint(options) {
         }
 
         var reporter = function (lint) {
-            var lintId = (lint.id[0] === 'E') ? chalk.bgGreen.white(lint.id) : chalk.bgRed.white(lint.id);
-            var output = false;
+            var lintId = (lint.id[0] === 'E') ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id);
+            var errorElementsAvailable = false;
             if (lint.elements) {
                 lint.elements.each(function (_, element) {
-                    var loc = element.startLocation;
-                    gutil.log(file + ":" + (loc.line + 1) + ":" + (loc.column + 1), lintId, lint.message);
-                    output = true;
+                    var errorLocation = element.startLocation;
+                    gutil.log(file.path + ":" + (errorLocation.line + 1) + ":" + (errorLocation.column + 1), lintId, lint.message);
+                    errorElementsAvailable = true;
                 });
             }
-            if (!output) {
-                gutil.log(file + ":", lintId, lint.message);
-                if (options.stoponerror) {
-                    hardfail = true;
-                }
+            if (!errorElementsAvailable) {
+                gutil.log(file.path + ":", lintId, lint.message);
             }
         };
 
-
-        bootlint.lintHtml(file, reporter, options.relaxerror);
+        bootlint.lintHtml(file.contents.toString(), reporter, options.relaxerror);
 
         return cb(null, file);
     });

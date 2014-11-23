@@ -33,8 +33,9 @@ function gulpBootlint(options) {
         }
 
         var reporter = function (lint) {
-            var lintId = (lint.id[0] === 'E') ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id);
-            var errorElementsAvailable = false;
+            var lintId = (lint.id[0] === 'E') ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id),
+                errorElementsAvailable = false;
+
             if (lint.elements) {
                 lint.elements.each(function (_, element) {
                     var errorLocation = element.startLocation;
@@ -45,8 +46,11 @@ function gulpBootlint(options) {
             if (!errorElementsAvailable) {
                 gutil.log(file.path + ":", lintId, lint.message);
             }
+            file.bootlint.success = false;
+            file.bootlint.issues.push(lint);
         };
 
+        file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
         return cb(null, file);

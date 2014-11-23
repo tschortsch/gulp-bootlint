@@ -12,7 +12,7 @@ npm install gulp-bootlint --save-dev
 
 ## Usage
 
-```js
+```javascript
 var gulp = require('gulp');
 var bootlint  = require('gulp-bootlint');
 

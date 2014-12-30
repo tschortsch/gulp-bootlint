@@ -36,7 +36,6 @@ function gulpBootlint(options) {
     }
 
     var reporter = function (lint) {
-      console.log("reporter says something");
       var lintId = (lint.id[0] === 'E') ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id),
         errorElementsAvailable = false;
 

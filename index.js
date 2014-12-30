@@ -20,6 +20,7 @@ function gulpBootlint(options) {
   options = options || {
     disabledIds: []
   };
+  var hasError = false;
 
   // creating a stream through which each file will pass
   var stream = through.obj(function (file, enc, cb) {
@@ -35,8 +36,9 @@ function gulpBootlint(options) {
     }
 
     var reporter = function (lint) {
+      console.log("reporter says something");
       var lintId = (lint.id[0] === 'E') ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id),
-          errorElementsAvailable = false;
+        errorElementsAvailable = false;
 
       if (lint.elements) {
         lint.elements.each(function (_, element) {
@@ -50,6 +52,7 @@ function gulpBootlint(options) {
       }
 
       ++errorCount;
+      hasError = true;
       file.bootlint.success = false;
       file.bootlint.issues.push(lint);
     };
@@ -65,9 +68,12 @@ function gulpBootlint(options) {
     }
 
     return cb(null, file);
+  }, function(cb) {
+    if(hasError) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Lint errors found!'));
+      return cb();
+    }
   });
-
-
 
   return stream;
 };

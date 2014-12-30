@@ -71,8 +71,9 @@ function gulpBootlint(options) {
   }, function(cb) {
     if(hasError) {
       this.emit('error', new PluginError(PLUGIN_NAME, 'Lint errors found!'));
-      return cb();
     }
+
+    return cb();
   });
 
   return stream;

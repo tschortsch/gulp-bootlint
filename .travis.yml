@@ -1,4 +1,13 @@
 language: node_js
 node_js:
-  - "0.10"
-  - "0.11"
+- '0.10'
+- '0.11'
+deploy:
+  provider: npm
+  email: juerg.hunziker@gmail.com
+  api_key:
+    secure: evlzKBR3P22szNdL2w4zS6NFaWJXQMFTUMFXFBnPkofNsnZAdOVPmNTqQbze3fQF+B/Eijv1rHShommktxV567lZi+oewIU5g7zPitiXHzwwuCcaswZnX2W5P2RHHykrpUYAJ9hfkNHolrdf6oLtzvc1aiwKhRgXr9oPLMPGjEA=
+  on:
+    tags: true
+    repo: tschortsch/gulp-bootlint
+    branch: master

@@ -23,8 +23,8 @@ var getFile = function(filePath) {
   });
 };
 
-describe('gulp-bootlint', function(){
-  describe('bootlintPlugin', function(){
+describe('gulp-bootlint', function() {
+  describe('bootlintPlugin', function() {
     it('should pass file through', function(done) {
       var file = getFile('fixtures/valid-bootstrap.html'),
           stream = bootlintPlugin(),
@@ -49,9 +49,9 @@ describe('gulp-bootlint', function(){
 
       stream.write(file);
       stream.end();
-  });
+    });
 
-  it('should send failure status', function(done) {
+    it('should send failure status', function(done) {
       var file = getFile('fixtures/invalid-bootstrap.html'),
           stream = bootlintPlugin(),
           fileCount = 0;

@@ -36,13 +36,13 @@
   ],
   "dependencies": {
     "gulp-util": "^3.0.0",
-    "bootlint": "^0.8.0",
+    "bootlint": "^0.9.1",
     "through2": "^0.6.1",
     "chalk": "^0.5.1"
   },
   "devDependencies": {
-    "mocha": "^2.0.1",
-    "should": "^4.3.0"
+    "mocha": "^2.1.0",
+    "should": "^4.4.2"
   },
   "readmeFilename": "README.md",
   "bugs": {

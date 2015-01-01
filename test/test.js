@@ -65,6 +65,9 @@ describe('gulp-bootlint', function() {
         file.bootlint.issues.length.should.equal(1);
         file.bootlint.issues[0].id.should.equal('W009');
       });
+      stream.on('error', function( err ) {
+        err.message.should.equal('Lint errors found!');
+      });
       stream.once('end', function() {
         fileCount.should.equal(1);
         done();

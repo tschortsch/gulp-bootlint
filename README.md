@@ -18,7 +18,7 @@ var gulp = require('gulp');
 var bootlint  = require('gulp-bootlint');
 
 gulp.task('default', function() {
-    gulp.src('./index.html')
+    return gulp.src('./index.html')
         .pipe(bootlint());
 });
 ```
@@ -39,7 +39,7 @@ var gulp = require('gulp');
 var bootlint  = require('gulp-bootlint');
 
 gulp.task('default', function() {
-    gulp.src('./index.html')
+    return gulp.src('./index.html')
         .pipe(bootlint({
             disabledIds: ['W009', 'E007']
         }));

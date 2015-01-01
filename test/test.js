@@ -11,7 +11,6 @@ var should = require('should');
 var gutil = require('gulp-util');
 var fs = require('fs');
 var path = require('path');
-require('mocha');
 
 var getFile = function(filePath) {
   var fullFilePath = './test/' + filePath;

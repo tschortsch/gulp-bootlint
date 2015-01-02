@@ -89,5 +89,25 @@ describe('gulp-bootlint', function() {
             stream.write(file);
             stream.end();
         });
+
+        it('should not fail on disabled error ids', function(done) {
+            var file = getFile('fixtures/invalid-bootstrap.html'),
+                stream = bootlintPlugin({
+                    disabledIds: ['W009']
+                });
+
+            stream.on('data', function(file) {
+                should.exist(file);
+                should.exist(file.bootlint);
+                should.equal(file.bootlint.success, true);
+            });
+
+            stream.once('end', function() {
+                done();
+            });
+
+            stream.write(file);
+            stream.end();
+        });
     });
 });

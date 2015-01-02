@@ -34,8 +34,6 @@ describe('gulp-bootlint', function() {
                 should.exist(file.path);
                 should.exist(file.relative);
                 should.exist(file.contents);
-                should.exist(file.bootlint);
-                should.equal(file.bootlint.success, true);
                 file.path.should.equal('./test/fixtures/valid-bootstrap.html');
                 file.relative.should.equal('valid-bootstrap.html');
                 ++fileCount;
@@ -50,13 +48,30 @@ describe('gulp-bootlint', function() {
             stream.end();
         });
 
-        it('should send failure status', function(done) {
+        it('should lint valid file', function(done) {
+            var file = getFile('fixtures/valid-bootstrap.html'),
+                stream = bootlintPlugin();
+
+            stream.on('data', function(file) {
+                should.exist(file);
+                should.exist(file.bootlint);
+                should.equal(file.bootlint.success, true);
+            });
+
+            stream.once('end', function() {
+                done();
+            });
+
+            stream.write(file);
+            stream.end();
+        });
+
+        it('should send failure status on invalid file', function(done) {
             var file = getFile('fixtures/invalid-bootstrap.html'),
                 stream = bootlintPlugin(),
                 fileCount = 0;
 
             stream.on('data', function(file) {
-                ++fileCount;
                 should.exist(file.bootlint);
                 should.exist(file.bootlint.success);
                 file.bootlint.success.should.equal(false);
@@ -68,7 +83,6 @@ describe('gulp-bootlint', function() {
                 err.message.should.equal('Lint errors found!');
             });
             stream.once('end', function() {
-                fileCount.should.equal(1);
                 done();
             });
 

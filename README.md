@@ -3,21 +3,25 @@
 
 A gulp wrapper for Bootlint, the HTML linter for Bootstrap projects.
 
-## Installation
+## First steps
 
-Install via [npm](https://npmjs.org/package/gulp-bootlint):
+If you are familiar with [gulp](http://gulpjs.com/) just install the plugin from [npm](https://npmjs.org/package/gulp-bootlint) with the following command:
 
 ```
 npm install gulp-bootlint --save-dev
 ```
 
-## Usage
+Otherwise check out the [Getting Started](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md#getting-started) guide of gulp first.
+
+## Create a new gulp task
+
+After installing the plugin you can create a new gulp task in your `gulpfile.js` like this:
 
 ```javascript
 var gulp = require('gulp');
 var bootlint  = require('gulp-bootlint');
 
-gulp.task('default', function() {
+gulp.task('bootlint', function() {
     return gulp.src('./index.html')
         .pipe(bootlint());
 });
@@ -25,20 +29,22 @@ gulp.task('default', function() {
 
 ## Options
 
+You can pass the following options as a single object when calling the bootlint plugin.
+
 ### options.disabledIds
 
 * Type: `Array`
 * Default: `[]`
 
-Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (`String`s) to explicitly ignore.
+Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as `Strings`) to explicitly ignore.
 
-Example:
+#### Example:
 
 ```javascript
 var gulp = require('gulp');
 var bootlint  = require('gulp-bootlint');
 
-gulp.task('default', function() {
+gulp.task('bootlint', function() {
     return gulp.src('./index.html')
         .pipe(bootlint({
             disabledIds: ['W009', 'E007']
@@ -46,3 +52,14 @@ gulp.task('default', function() {
 });
 
 ```
+
+## Release History
+
+* 2015-01-01 - v0.2.1: Code cleanup
+* 2015-01-01 - v0.2.0: Updated bootlint to v0.9.1
+* 2015-01-01 - v0.1.1: Fail on linting error.
+* 2014-11-23 - v0.1.0: First public release.
+
+## License
+
+Copyright (c) 2015 Jürg Hunziker. Licensed under the MIT License.

@@ -35,7 +35,7 @@
     "checker"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.1",
+    "gulp-util": "^3.0.2",
     "bootlint": "^0.9.1",
     "through2": "^0.6.3",
     "chalk": "^0.5.1"

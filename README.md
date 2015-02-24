@@ -55,6 +55,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
+* 2015-02-24 - v0.3.0: Updated Bootlint to v0.11.0 / Bumped other dependency versions
 * 2015-01-26 - v0.2.3: Updated Bootlint to v0.10.0
 * 2015-01-07 - v0.2.2: Updated dependencies
 * 2015-01-01 - v0.2.1: Code cleanup

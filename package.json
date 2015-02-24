@@ -38,7 +38,7 @@
     "gulp-util": "^3.0.3",
     "bootlint": "^0.10.0",
     "through2": "^0.6.3",
-    "chalk": "^0.5.1"
+    "chalk": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^2.1.0",

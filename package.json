@@ -36,7 +36,7 @@
   ],
   "dependencies": {
     "gulp-util": "^3.0.3",
-    "bootlint": "^0.10.0",
+    "bootlint": "^0.11.0",
     "through2": "^0.6.3",
     "chalk": "^1.0.0"
   },

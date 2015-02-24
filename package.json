@@ -35,14 +35,14 @@
     "checker"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.3",
+    "gulp-util": "^3.0.4",
     "bootlint": "^0.11.0",
     "through2": "^0.6.3",
     "chalk": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^2.1.0",
-    "should": "^5.0.0"
+    "should": "^5.0.1"
   },
   "readmeFilename": "README.md",
   "bugs": {

@@ -22,9 +22,9 @@ function gulpBootlint(options) {
         hasWarning = false;
 
     options = merge({
-        disabledIds: [],
         stoponwarning: false,
-        stoponerror: false
+        stoponerror: false,
+        disabledIds: []
     }, options);
 
     // creating a stream through which each file will pass

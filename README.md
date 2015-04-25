@@ -31,6 +31,20 @@ gulp.task('bootlint', function() {
 
 You can pass the following options as a single object when calling the bootlint plugin.
 
+### options.stoponwarning
+
+* Type: `Boolean`
+* Default: `false`
+
+Stops the gulp task if there are warnings in the linted file.
+
+### options.stoponerror
+
+* Type: `Boolean`
+* Default: `false`
+
+Stops the gulp task if there are errors in the linted file.
+
 ### options.disabledIds
 
 * Type: `Array`
@@ -38,7 +52,7 @@ You can pass the following options as a single object when calling the bootlint 
 
 Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as `Strings`) to explicitly ignore.
 
-#### Example:
+### Example of options usage:
 
 ```javascript
 var gulp = require('gulp');
@@ -47,10 +61,11 @@ var bootlint  = require('gulp-bootlint');
 gulp.task('bootlint', function() {
     return gulp.src('./index.html')
         .pipe(bootlint({
+            stoponwarning: true,
+            stoponerror: true,
             disabledIds: ['W009', 'E007']
         }));
 });
-
 ```
 
 ## Release History

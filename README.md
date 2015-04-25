@@ -31,19 +31,19 @@ gulp.task('bootlint', function() {
 
 You can pass the following options as a single object when calling the bootlint plugin.
 
-### options.stoponwarning
-
-* Type: `Boolean`
-* Default: `false`
-
-Stops the gulp task if there are warnings in the linted file.
-
 ### options.stoponerror
 
 * Type: `Boolean`
 * Default: `false`
 
 Stops the gulp task if there are errors in the linted file.
+
+### options.stoponwarning
+
+* Type: `Boolean`
+* Default: `false`
+
+Stops the gulp task if there are warnings in the linted file.
 
 ### options.disabledIds
 
@@ -61,8 +61,8 @@ var bootlint  = require('gulp-bootlint');
 gulp.task('bootlint', function() {
     return gulp.src('./index.html')
         .pipe(bootlint({
-            stoponwarning: true,
             stoponerror: true,
+            stoponwarning: true,
             disabledIds: ['W009', 'E007']
         }));
 });
@@ -70,6 +70,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
+* 2015-04-25 - v0.4.1: Added parameters to stop task on error or warning
 * 2015-04-25 - v0.4.0: Updated Bootlint to v0.12.0 / Bumped other dependency versions
 * 2015-02-24 - v0.3.0: Updated Bootlint to v0.11.0 / Bumped other dependency versions
 * 2015-01-26 - v0.2.3: Updated Bootlint to v0.10.0

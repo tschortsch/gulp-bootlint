@@ -22,8 +22,8 @@ function gulpBootlint(options) {
         hasWarning = false;
 
     options = merge({
-        stoponwarning: false,
         stoponerror: false,
+        stoponwarning: false,
         disabledIds: []
     }, options);
 
@@ -80,7 +80,7 @@ function gulpBootlint(options) {
 
         return cb(null, file);
     }, function(cb) {
-        if((hasWarning && options.stoponwarning) || (hasError && options.stoponerror)) {
+        if((hasError && options.stoponerror) || (hasWarning && options.stoponwarning)) {
             this.emit('error', new PluginError(PLUGIN_NAME, 'Lint errors found!'));
         }
 

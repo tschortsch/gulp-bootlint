@@ -38,7 +38,8 @@
     "gulp-util": "^3.0.4",
     "bootlint": "^0.12.0",
     "through2": "^0.6.5",
-    "chalk": "^1.0.0"
+    "chalk": "^1.0.0",
+    "merge": "^1.2.0"
   },
   "devDependencies": {
     "mocha": "^2.2.4",

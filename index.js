@@ -11,16 +11,21 @@ var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 var through = require('through2');
 var chalk = require('chalk');
+var merge = require('merge');
 var bootlint = require('bootlint');
 
 // consts
 var PLUGIN_NAME = 'gulp-bootlint';
 
 function gulpBootlint(options) {
-    options = options || {
-        disabledIds: []
-    };
-    var hasError = false;
+    var hasError = false,
+        hasWarning = false;
+
+    options = merge({
+        disabledIds: [],
+        stoponwarning: false,
+        stoponerror: false
+    }, options);
 
     // creating a stream through which each file will pass
     var stream = through.obj(function (file, enc, cb) {
@@ -36,7 +41,9 @@ function gulpBootlint(options) {
         }
 
         var reporter = function (lint) {
-            var lintId = (lint.id[0] === 'E') ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id),
+            var isError = (lint.id[0] === 'E'),
+                isWarning = (lint.id[0] === 'W'),
+                lintId = (isError) ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id),
                 errorElementsAvailable = false;
 
             if (lint.elements) {
@@ -50,8 +57,13 @@ function gulpBootlint(options) {
                 gutil.log(file.path + ":", lintId, lint.message);
             }
 
+            if(isError) {
+                hasError = true;
+            }
+            if(isWarning) {
+                hasWarning = true;
+            }
             ++errorCount;
-            hasError = true;
             file.bootlint.success = false;
             file.bootlint.issues.push(lint);
         };
@@ -68,7 +80,7 @@ function gulpBootlint(options) {
 
         return cb(null, file);
     }, function(cb) {
-        if(hasError) {
+        if((hasWarning && options.stoponwarning) || (hasError && options.stoponerror)) {
             this.emit('error', new PluginError(PLUGIN_NAME, 'Lint errors found!'));
         }
 

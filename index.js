@@ -85,14 +85,14 @@ function gulpBootlint(options) {
             file.bootlint.issues.push(lint);
         };
 
-        log.debug(chalk.gray('Linting file ' + file.path));
+        log.info(chalk.gray('Linting file ' + file.path));
         file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
         if(errorCount > 0 || warningCount > 0) {
-            log.debug(chalk.red(errorCount + ' lint error(s) and ' + warningCount + ' lint warning(s) found in file ' + file.path));
+            log.notice(chalk.red(errorCount + ' lint error(s) and ' + warningCount + ' lint warning(s) found in file ' + file.path));
         } else {
-            log.debug(chalk.green(file.path + ' is lint free!'));
+            log.info(chalk.green(file.path + ' is lint free!'));
         }
 
         return cb(null, file);

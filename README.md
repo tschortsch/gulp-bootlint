@@ -45,6 +45,14 @@ Stops the gulp task if there are errors in the linted file.
 
 Stops the gulp task if there are warnings in the linted file.
 
+### options.loglevel
+
+* Type: `String`
+* Default: `error`
+* Options: `emergency`, `alert`, `critical`, `error`, `warning`, `notice`, `info`, `debug`
+
+Defines which log messages should be printed to `stdout`.
+
 ### options.disabledIds
 
 * Type: `Array`
@@ -63,6 +71,7 @@ gulp.task('bootlint', function() {
         .pipe(bootlint({
             stoponerror: true,
             stoponwarning: true,
+            loglevel: debug,
             disabledIds: ['W009', 'E007']
         }));
 });
@@ -70,6 +79,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
+* 2015-06-21 - v0.6.0: Added configurable log levels
 * 2015-06-18 - v0.5.1: Bumped dependency versions
 * 2015-04-28 - v0.5.0: Added parameters to stop task on error or warning
 * 2015-04-25 - v0.4.0: Updated Bootlint to v0.12.0 / Bumped other dependency versions

@@ -120,6 +120,27 @@ describe('gulp-bootlint', function() {
             stream.end();
         });
 
+        it('should find errors and warnings in invalid file', function(done) {
+            var file = getFile('fixtures/error_warning-bootstrap.html'),
+                stream = bootlintPlugin();
+
+            stream.on('data', function(file) {
+                should.exist(file.bootlint);
+                should.exist(file.bootlint.success);
+                file.bootlint.success.should.equal(false);
+                should.exist(file.bootlint.issues);
+                file.bootlint.issues.length.should.equal(2);
+                file.bootlint.issues[0].id.should.equal('E001');
+                file.bootlint.issues[1].id.should.equal('W009');
+            });
+            stream.once('end', function() {
+                done();
+            });
+
+            stream.write(file);
+            stream.end();
+        });
+
         it('should stop on warnings', function(done) {
             var file = getFile('fixtures/warning-bootstrap.html'),
                 stream = bootlintPlugin({

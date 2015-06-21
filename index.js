@@ -11,6 +11,7 @@ var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 var through = require('through2');
 var chalk = require('chalk');
+var Log = require('log');
 var merge = require('merge');
 var bootlint = require('bootlint');
 
@@ -19,17 +20,22 @@ var PLUGIN_NAME = 'gulp-bootlint';
 
 function gulpBootlint(options) {
     var hasError = false,
-        hasWarning = false;
+        hasWarning = false,
+        log, stream;
 
     options = merge({
         stoponerror: false,
         stoponwarning: false,
+        loglevel: 'error',
         disabledIds: []
     }, options);
 
+    log = new Log(options.loglevel);
+
     // creating a stream through which each file will pass
-    var stream = through.obj(function (file, enc, cb) {
-        var errorCount = 0;
+    stream = through.obj(function (file, enc, cb) {
+        var errorCount = 0,
+            warningCount = 0;
 
         if (file.isNull()) {
             return cb(null, file);
@@ -48,34 +54,45 @@ function gulpBootlint(options) {
 
             if (lint.elements) {
                 lint.elements.each(function (_, element) {
-                    var errorLocation = element.startLocation;
-                    gutil.log(file.path + ":" + (errorLocation.line + 1) + ":" + (errorLocation.column + 1), lintId, lint.message);
+                    var errorLocation = element.startLocation,
+                        message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;
+                    if(isError) {
+                        log.error(message);
+                    } else {
+                        log.warning(message);
+                    }
                     errorElementsAvailable = true;
                 });
             }
             if (!errorElementsAvailable) {
-                gutil.log(file.path + ":", lintId, lint.message);
+                var message = file.path + ': ' + lintId + ' ' + lint.message;
+                if(isError) {
+                    log.error(message);
+                } else {
+                    log.warning(message);
+                }
             }
 
             if(isError) {
+                ++errorCount;
                 hasError = true;
             }
             if(isWarning) {
+                ++warningCount;
                 hasWarning = true;
             }
-            ++errorCount;
             file.bootlint.success = false;
             file.bootlint.issues.push(lint);
         };
 
-        gutil.log(chalk.gray('Linting file ' + file.path));
+        log.info(chalk.gray('Linting file ' + file.path));
         file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
-        if(errorCount > 0) {
-            gutil.log(chalk.red(errorCount + ' lint error(s) found in file ' + file.path));
+        if(errorCount > 0 || warningCount > 0) {
+            log.notice(chalk.red(errorCount + ' lint error(s) and ' + warningCount + ' lint warning(s) found in file ' + file.path));
         } else {
-            gutil.log(chalk.green(file.path + ' is lint free!'));
+            log.info(chalk.green(file.path + ' is lint free!'));
         }
 
         return cb(null, file);

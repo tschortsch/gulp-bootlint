@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "mocha": "^2.2.5",
-    "should": "^7.0.1"
+    "should": "^7.0.2"
   },
   "readmeFilename": "README.md",
   "bugs": {

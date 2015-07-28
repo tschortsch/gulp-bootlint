@@ -2,11 +2,13 @@ language: node_js
 node_js:
 - '0.10'
 - '0.11'
+- '0.12'
+sudo: false
 deploy:
   provider: npm
   email: juerg.hunziker@gmail.com
   api_key:
-    secure: evlzKBR3P22szNdL2w4zS6NFaWJXQMFTUMFXFBnPkofNsnZAdOVPmNTqQbze3fQF+B/Eijv1rHShommktxV567lZi+oewIU5g7zPitiXHzwwuCcaswZnX2W5P2RHHykrpUYAJ9hfkNHolrdf6oLtzvc1aiwKhRgXr9oPLMPGjEA=
+    secure: pgP9vBCs0LcgJdM/D+GNZkCqQmJH1xh49QmU/lNxw1aPlHhRZ/mwI/GcBpG3IiHeTH/FFxYZjllSMwi1YpXP8LH9G2oizN0a+T13uYwEcPajbAlz/dtQK4vSEuafaifQCJ4fyAezMSg3mJ1yM1uWCZPvdpSP62kNw/cvkHvx6Ls=
   on:
     tags: true
     all_branches: true

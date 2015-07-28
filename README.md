@@ -79,7 +79,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
-* 2015-07-28 - v0.6.1: Bumped dependency versions
+* 2015-07-28 - v0.6.2: Bumped dependency versions
 * 2015-06-21 - v0.6.0: Added option to define log level
 * 2015-06-18 - v0.5.1: Bumped dependency versions
 * 2015-04-28 - v0.5.0: Added parameters to stop task on error or warning

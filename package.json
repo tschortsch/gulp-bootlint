@@ -35,16 +35,16 @@
     "checker"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.6",
     "bootlint": "^0.12.0",
-    "through2": "^2.0.0",
-    "chalk": "^1.1.0",
+    "chalk": "^1.1.1",
+    "gulp-util": "^3.0.6",
+    "log": "^1.4.0",
     "merge": "^1.2.0",
-    "log": "^1.4.0"
+    "through2": "^2.0.0"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
-    "should": "^7.0.2"
+    "should": "^7.0.4"
   },
   "readmeFilename": "README.md",
   "bugs": {

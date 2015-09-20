@@ -43,8 +43,8 @@
     "through2": "^2.0.0"
   },
   "devDependencies": {
-    "mocha": "^2.2.5",
-    "should": "^7.0.4"
+    "mocha": "^2.3.2",
+    "should": "^7.1.0"
   },
   "readmeFilename": "README.md",
   "bugs": {

@@ -174,5 +174,62 @@ describe('gulp-bootlint', function() {
             stream.write(file);
             stream.end();
         });
+
+        it('should use own report function', function(done) {
+            var lintResults = {
+                file: null,
+                isError: false
+            };
+            var myReportFn = function(file, lint, isError, isWarning, errorLocation) {
+                lintResults.file = file;
+                lintResults.isError = isError;
+            };
+            var file = getFile('fixtures/error-bootstrap.html'),
+                stream = bootlintPlugin({
+                    reportFn: myReportFn
+                });
+
+            stream.on('data', function(file) {
+                should.equal(lintResults.file, file);
+                should.equal(lintResults.isError, true);
+            });
+
+            stream.once('end', function() {
+                done();
+            });
+
+            stream.write(file);
+            stream.end();
+        });
+
+        it('should use own summary report function', function(done) {
+            var lintResults = {
+                file: null,
+                errorCount: 0,
+                warningCount: 0
+            };
+            var mySummaryReportFn = function(file, errorCount, warningCount) {
+                lintResults.file = file;
+                lintResults.errorCount = errorCount;
+                lintResults.warningCount = warningCount;
+            };
+            var file = getFile('fixtures/error-bootstrap.html'),
+                stream = bootlintPlugin({
+                    summaryReportFn: mySummaryReportFn
+                });
+
+            stream.on('data', function(file) {
+                should.equal(lintResults.file, file);
+                should.equal(lintResults.errorCount, 1);
+                should.equal(lintResults.warningCount, 0);
+            });
+
+            stream.once('end', function() {
+                done();
+            });
+
+            stream.write(file);
+            stream.end();
+        });
     });
 });

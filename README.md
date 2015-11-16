@@ -62,13 +62,13 @@ Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as 
 
 ### options.reportFn
 
-* Type: `Function(file, lint, isError, isWarning, errorLocation){}`
+* Type: `Function`
 * Parameter:
-** `Object` file - File with linting error.
-** `Object` lint - Linting error.
-** `Boolean` isError - True if current linting problem is an error.
-** `Boolean` isWarning - True if current linting problem is a warning.
-** `Object` errorLocation - Error location in file.
+  * `Object` file - File with linting error.
+  * `Object` lint - Linting error.
+  * `Boolean` isError - True if current linting problem is an error.
+  * `Boolean` isWarning - True if current linting problem is a warning.
+  * `Object` errorLocation - Error location in file.
 
 A function that will log out the lint errors to the console. Only use this if you want to customize how the lint errors are reported.
 
@@ -76,9 +76,9 @@ A function that will log out the lint errors to the console. Only use this if yo
 
 * Type: `Function`
 * Parameter:
-** `Object` file - File which was linted.
-** `Integer` errorCount - Total count of errors in the file.
-** `Integer` warningCount - Total count of warnings in the file.
+  * `Object` file - File which was linted.
+  * `Integer` errorCount - Total count of errors in the file.
+  * `Integer` warningCount - Total count of warnings in the file.
 
 A function that will log out the final lint error/warning summary to the console. Only use this if you want to customize how this is reported.
 If desired, this can be turned off entirely by setting `summaryReportFn: false`.

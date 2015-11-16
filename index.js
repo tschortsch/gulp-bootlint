@@ -116,8 +116,8 @@ function gulpBootlint(options) {
         file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
-        if(options.defaultSummaryReportFn){
-            options.defaultSummaryReportFn(errorCount, warningCount, file);
+        if(options.summaryReportFn){
+            options.summaryReportFn(errorCount, warningCount, file);
         }
 
         return cb(null, file);

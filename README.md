@@ -95,14 +95,14 @@ gulp.task('bootlint', function() {
         .pipe(bootlint({
             stoponerror: true,
             stoponwarning: true,
-            loglevel: debug,
+            loglevel: 'debug',
             disabledIds: ['W009', 'E007'],
             reportFn: function(file, lint, isError, isWarning, errorLocation) {
                 var message = (isError) ? "ERROR! - " : "WARN! - ";
                 if (errorLocation) {
                     message += file.path + ' (line:' + (errorLocation.line + 1) + ', col:' + (errorLocation.column + 1) + ') [' + lint.id + '] ' + lint.message;
                 } else {
-                    message += file.path + ': ' + lintId + ' ' + lint.message;
+                    message += file.path + ': ' + lint.id + ' ' + lint.message;
                 }
                 console.log(message);
             },

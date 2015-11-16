@@ -10,7 +10,6 @@
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 var through = require('through2');
-var chalk = require('chalk');
 var Log = require('log');
 var merge = require('merge');
 var bootlint = require('bootlint');
@@ -23,11 +22,49 @@ function gulpBootlint(options) {
         hasWarning = false,
         log, stream;
 
+    function defaultReportFn(file, lint, isError, isWarning, errorLocation) {
+        var lintId = (isError) ? gutil.colors.bgRed.white(lint.id) : gutil.colors.bgYellow.white(lint.id);
+        var message = "";
+        if (errorLocation) {
+            message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;
+        } else {
+            message = file.path + ': ' + lintId + ' ' + lint.message;
+        }
+
+        if (isError) {
+            log.error(message);
+        } else {
+            log.warning(message);
+        }
+    }
+
+    function defaultSummaryReportFn(errorCount, warningCount, file){
+        if (errorCount > 0 || warningCount > 0) {
+            var str = '';
+            if (errorCount > 0) {
+                str += gutil.colors.red(errorCount + ' lint ' + (errorCount === 1 ? 'error' : 'errors'));
+            }
+
+            if (warningCount > 0) {
+                if (errorCount > 0) {
+                    str += ' and ';
+                }
+                str += gutil.colors.yellow(warningCount + ' lint ' + (warningCount === 1 ? 'warning' : 'warnings'));
+            }
+            str += ' found in file ' + file.path;
+            log.notice(str);
+        } else {
+            log.info(gutil.colors.green(file.path + ' is lint free!'));
+        }
+    }
+
     options = merge({
         stoponerror: false,
         stoponwarning: false,
         loglevel: 'error',
-        disabledIds: []
+        disabledIds: [],
+        reportFn: defaultReportFn,
+        summaryReportFn: defaultSummaryReportFn
     }, options);
 
     log = new Log(options.loglevel);
@@ -49,35 +86,25 @@ function gulpBootlint(options) {
         var reporter = function (lint) {
             var isError = (lint.id[0] === 'E'),
                 isWarning = (lint.id[0] === 'W'),
-                lintId = (isError) ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id),
                 errorElementsAvailable = false;
 
             if (lint.elements) {
                 lint.elements.each(function (_, element) {
-                    var errorLocation = element.startLocation,
-                        message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;
-                    if(isError) {
-                        log.error(message);
-                    } else {
-                        log.warning(message);
+                    if(options.reportFn){
+                        options.reportFn(file, lint, isError, isWarning, element.startLocation);
                     }
                     errorElementsAvailable = true;
                 });
             }
-            if (!errorElementsAvailable) {
-                var message = file.path + ': ' + lintId + ' ' + lint.message;
-                if(isError) {
-                    log.error(message);
-                } else {
-                    log.warning(message);
-                }
+            if (!errorElementsAvailable && options.reportFn) {
+                options.reportFn(file, lint, isError, isWarning, null);
             }
 
-            if(isError) {
+            if (isError) {
                 ++errorCount;
                 hasError = true;
             }
-            if(isWarning) {
+            if (isWarning) {
                 ++warningCount;
                 hasWarning = true;
             }
@@ -85,19 +112,17 @@ function gulpBootlint(options) {
             file.bootlint.issues.push(lint);
         };
 
-        log.info(chalk.gray('Linting file ' + file.path));
+        log.info(gutil.colors.gray('Linting file ' + file.path));
         file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
-        if(errorCount > 0 || warningCount > 0) {
-            log.notice(chalk.red(errorCount + ' lint error(s) and ' + warningCount + ' lint warning(s) found in file ' + file.path));
-        } else {
-            log.info(chalk.green(file.path + ' is lint free!'));
+        if(options.defaultSummaryReportFn){
+            options.defaultSummaryReportFn(errorCount, warningCount, file);
         }
 
         return cb(null, file);
-    }, function(cb) {
-        if((hasError && options.stoponerror) || (hasWarning && options.stoponwarning)) {
+    }, function (cb) {
+        if ((hasError && options.stoponerror) || (hasWarning && options.stoponwarning)) {
             this.emit('error', new PluginError(PLUGIN_NAME, 'Lint errors found!'));
         }
 

@@ -66,6 +66,14 @@ Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as 
 
 A function that will log out the lint errors to the console. Only use this if you want to customize how the lint errors are reported
 
+### options.summaryReportFn
+
+* Type: `Function(errorCount, warningCount, file){}`
+
+A function that will log out the final lint error/warning summary to the console. Only use this if you want to customize how this is reported.
+If desired, this can be turned off entirely by setting `summaryReportFn: false`
+
+
 ### Example of options usage:
 
 ```javascript
@@ -87,6 +95,13 @@ gulp.task('bootlint', function() {
                     message += file.path + ': ' + lintId + ' ' + lint.message;
                 }
                 console.log(message);
+            },
+            summaryReportFn: function(errorCount, warningCount, file){
+                if(errorCount > 0 || warningCount > 0){
+                    console.log("please fix the " + errorCount + " errors and "+ warningCount + " warnings in " + file.path);
+                }else{
+                    console.log("No problems found in "+ file.path);
+                }
             }
         }));
 });

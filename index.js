@@ -38,12 +38,33 @@ function gulpBootlint(options) {
         }
     }
 
+    function defaultSummaryReportFn(errorCount, warningCount, file){
+        if (errorCount > 0 || warningCount > 0) {
+            var str = '';
+            if (errorCount > 0) {
+                str += gutil.colors.red(errorCount + ' lint ' + (errorCount === 1 ? 'error' : 'errors'));
+            }
+
+            if (warningCount > 0) {
+                if (errorCount > 0) {
+                    str += ' and ';
+                }
+                str += gutil.colors.yellow(warningCount + ' lint ' + (warningCount === 1 ? 'warning' : 'warnings'));
+            }
+            str += ' found in file ' + file.path;
+            log.notice(str);
+        } else {
+            log.info(gutil.colors.green(file.path + ' is lint free!'));
+        }
+    }
+
     options = merge({
         stoponerror: false,
         stoponwarning: false,
         loglevel: 'error',
         disabledIds: [],
-        reportFn: defaultReportFn
+        reportFn: defaultReportFn,
+        summaryReportFn: defaultSummaryReportFn
     }, options);
 
     log = new Log(options.loglevel);
@@ -70,7 +91,7 @@ function gulpBootlint(options) {
             if (lint.elements) {
                 lint.elements.each(function (_, element) {
                     if(options.reportFn){
-                    options.reportFn(file, lint, isError, isWarning, element.startLocation);
+                        options.reportFn(file, lint, isError, isWarning, element.startLocation);
                     }
                     errorElementsAvailable = true;
                 });
@@ -95,22 +116,8 @@ function gulpBootlint(options) {
         file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
-        if (errorCount > 0 || warningCount > 0) {
-            var str = '';
-            if (errorCount > 0) {
-                str += gutil.colors.red(errorCount + ' lint ' + (errorCount === 1 ? 'error' : 'errors'));
-            }
-
-            if (warningCount > 0) {
-                if (errorCount > 0) {
-                    str += ' and ';
-                }
-                str += gutil.colors.yellow(warningCount + ' lint ' + (warningCount === 1 ? 'warning' : 'warnings'));
-            }
-            str += ' found in file ' + file.path;
-            log.notice(str);
-        } else {
-            log.info(gutil.colors.green(file.path + ' is lint free!'));
+        if(options.defaultSummaryReportFn){
+            options.defaultSummaryReportFn(errorCount, warningCount, file);
         }
 
         return cb(null, file);

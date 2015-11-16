@@ -25,7 +25,7 @@ function gulpBootlint(options) {
     /**
      * Reporter function for linting errors and warnings.
      *
-     * @param file Current file object .
+     * @param file Current file object.
      * @param lint Current linting error.
      * @param isError True if this is an error.
      * @param isWarning True if this is a warning.
@@ -50,7 +50,7 @@ function gulpBootlint(options) {
     /**
      * Reporter function for linting summary.
      *
-     * @param file Current file object.
+     * @param file File which was linted.
      * @param errorCount Total count of errors in file.
      * @param warningCount Total count of warnings in file.
      */
@@ -146,7 +146,7 @@ function gulpBootlint(options) {
     });
 
     return stream;
-};
+}
 
 // exporting the plugin
 module.exports = gulpBootlint;

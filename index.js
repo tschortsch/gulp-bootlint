@@ -10,7 +10,6 @@
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 var through = require('through2');
-var chalk = require('chalk');
 var Log = require('log');
 var merge = require('merge');
 var bootlint = require('bootlint');
@@ -49,7 +48,7 @@ function gulpBootlint(options) {
         var reporter = function (lint) {
             var isError = (lint.id[0] === 'E'),
                 isWarning = (lint.id[0] === 'W'),
-                lintId = (isError) ? chalk.bgRed.white(lint.id) : chalk.bgYellow.white(lint.id),
+                lintId = (isError) ? gutil.colors.bgRed.white(lint.id) : gutil.colors.bgYellow.white(lint.id),
                 errorElementsAvailable = false;
 
             if (lint.elements) {
@@ -85,14 +84,14 @@ function gulpBootlint(options) {
             file.bootlint.issues.push(lint);
         };
 
-        log.info(chalk.gray('Linting file ' + file.path));
+        log.info(gutil.colors.gray('Linting file ' + file.path));
         file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
         if(errorCount > 0 || warningCount > 0) {
-            log.notice(chalk.red(errorCount + ' lint error(s) and ' + warningCount + ' lint warning(s) found in file ' + file.path));
+            log.notice(gutil.colors.red(errorCount + ' lint error(s) and ' + warningCount + ' lint warning(s) found in file ' + file.path));
         } else {
-            log.info(chalk.green(file.path + ' is lint free!'));
+            log.info(gutil.colors.green(file.path + ' is lint free!'));
         }
 
         return cb(null, file);

@@ -108,7 +108,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
-* 2015-11-16 - v0.7.0: Updated Bootlint to v0.14.1 / Added options to define reporters / Bumped dependency versions
+* 2015-11-16 - v0.7.0: Updated Bootlint to v0.14.1 / Added options to define reporters (thx @chrismbarr) / Bumped dependency versions
 * 2015-07-28 - v0.6.4: Bumped dependency versions
 * 2015-06-21 - v0.6.0: Added option to define log level
 * 2015-06-18 - v0.5.1: Bumped dependency versions

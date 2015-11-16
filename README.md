@@ -64,11 +64,11 @@ Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as 
 
 * Type: `Function`
 * Parameter:
-  * `Object` file - File with linting error.
-  * `Object` lint - Linting error.
-  * `Boolean` isError - True if current linting problem is an error.
-  * `Boolean` isWarning - True if current linting problem is a warning.
-  * `Object` errorLocation - Error location in file.
+  * `Object` **file** - File with linting error.
+  * `Object` **lint** - Linting error.
+  * `Boolean` **isError** - True if current linting problem is an error.
+  * `Boolean` **isWarning** - True if current linting problem is a warning.
+  * `Object` **errorLocation** - Error location in file.
 
 A function that will log out the lint errors to the console. Only use this if you want to customize how the lint errors are reported.
 
@@ -76,9 +76,9 @@ A function that will log out the lint errors to the console. Only use this if yo
 
 * Type: `Function`
 * Parameter:
-  * `Object` file - File which was linted.
-  * `Integer` errorCount - Total count of errors in the file.
-  * `Integer` warningCount - Total count of warnings in the file.
+  * `Object` **file** - File which was linted.
+  * `Integer` **errorCount** - Total count of errors in the file.
+  * `Integer` **warningCount** - Total count of warnings in the file.
 
 A function that will log out the final lint error/warning summary to the console. Only use this if you want to customize how this is reported.
 If desired, this can be turned off entirely by setting `summaryReportFn: false`.
@@ -96,7 +96,7 @@ gulp.task('bootlint', function() {
             stoponwarning: true,
             loglevel: debug,
             disabledIds: ['W009', 'E007'],
-            reportFn: function(file, lint, isError, isWarning, errorLocation){
+            reportFn: function(file, lint, isError, isWarning, errorLocation) {
                 var message = (isError) ? "ERROR! - " : "WARN! - ";
                 if (errorLocation) {
                     message += file.path + ' (line:' + (errorLocation.line + 1) + ', col:' + (errorLocation.column + 1) + ') [' + lint.id + '] ' + lint.message;
@@ -105,10 +105,10 @@ gulp.task('bootlint', function() {
                 }
                 console.log(message);
             },
-            summaryReportFn: function(errorCount, warningCount, file){
-                if(errorCount > 0 || warningCount > 0){
+            summaryReportFn: function(file, errorCount, warningCount) {
+                if (errorCount > 0 || warningCount > 0) {
                     console.log("please fix the " + errorCount + " errors and "+ warningCount + " warnings in " + file.path);
-                }else{
+                } else {
                     console.log("No problems found in "+ file.path);
                 }
             }

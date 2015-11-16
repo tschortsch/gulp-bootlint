@@ -71,6 +71,7 @@ Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as 
   * `Object` **errorLocation** - Error location in file.
 
 A function that will log out the lint errors to the console. Only use this if you want to customize how the lint errors are reported.
+If desired, this can be turned off entirely by setting `reportFn: false`.
 
 ### options.summaryReportFn
 

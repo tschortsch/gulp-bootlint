@@ -22,7 +22,7 @@ function gulpBootlint(options) {
         hasWarning = false,
         log, stream;
 
-    function defaultReportFn(file, lint, isError, isWarning, errorLocation) {
+    var defaultReportFn = function(file, lint, isError, isWarning, errorLocation) {
         var lintId = (isError) ? gutil.colors.bgRed.white(lint.id) : gutil.colors.bgYellow.white(lint.id);
         var message = "";
         if (errorLocation) {
@@ -36,27 +36,27 @@ function gulpBootlint(options) {
         } else {
             log.warning(message);
         }
-    }
+    };
 
-    function defaultSummaryReportFn(errorCount, warningCount, file){
+    var defaultSummaryReportFn = function(errorCount, warningCount, file){
         if (errorCount > 0 || warningCount > 0) {
-            var str = '';
+            var message = '';
             if (errorCount > 0) {
-                str += gutil.colors.red(errorCount + ' lint ' + (errorCount === 1 ? 'error' : 'errors'));
+                message += gutil.colors.red(errorCount + ' lint ' + (errorCount === 1 ? 'error' : 'errors'));
             }
 
             if (warningCount > 0) {
                 if (errorCount > 0) {
-                    str += ' and ';
+                    message += ' and ';
                 }
-                str += gutil.colors.yellow(warningCount + ' lint ' + (warningCount === 1 ? 'warning' : 'warnings'));
+                message += gutil.colors.yellow(warningCount + ' lint ' + (warningCount === 1 ? 'warning' : 'warnings'));
             }
-            str += ' found in file ' + file.path;
-            log.notice(str);
+            message += ' found in file ' + file.path;
+            log.notice(message);
         } else {
             log.info(gutil.colors.green(file.path + ' is lint free!'));
         }
-    }
+    };
 
     options = merge({
         stoponerror: false,

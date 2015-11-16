@@ -64,15 +64,14 @@ Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as 
 
 * Type: `Function(file, lint, isError, isWarning, errorLocation){}`
 
-A function that will log out the lint errors to the console. Only use this if you want to customize how the lint errors are reported
+A function that will log out the lint errors to the console. Only use this if you want to customize how the lint errors are reported.
 
 ### options.summaryReportFn
 
 * Type: `Function(errorCount, warningCount, file){}`
 
 A function that will log out the final lint error/warning summary to the console. Only use this if you want to customize how this is reported.
-If desired, this can be turned off entirely by setting `summaryReportFn: false`
-
+If desired, this can be turned off entirely by setting `summaryReportFn: false`.
 
 ### Example of options usage:
 
@@ -109,6 +108,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
+* 2015-11-16 - v0.7.0: Updated Bootlint to v0.14.1 / Added options to define reporters / Bumped dependency versions
 * 2015-07-28 - v0.6.4: Bumped dependency versions
 * 2015-06-21 - v0.6.0: Added option to define log level
 * 2015-06-18 - v0.5.1: Bumped dependency versions

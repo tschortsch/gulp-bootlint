@@ -55,7 +55,7 @@ Defines which log messages should be printed to `stdout`.
 
 ### options.disabledIds
 
-* Type: `Array`
+* Type: `String[]`
 * Default: `[]`
 
 Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as `Strings`) to explicitly ignore.

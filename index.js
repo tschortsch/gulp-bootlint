@@ -21,12 +21,29 @@ function gulpBootlint(options) {
     var hasError = false,
         hasWarning = false,
         log, stream;
-    
+
+    function defaultReportFn(file, lint, isError, isWarning, errorLocation) {
+        var lintId = (isError) ? gutil.colors.bgRed.white(lint.id) : gutil.colors.bgYellow.white(lint.id);
+        var message = "";
+        if (errorLocation) {
+            message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;
+        } else {
+            message = file.path + ': ' + lintId + ' ' + lint.message;
+        }
+
+        if (isError) {
+            log.error(message);
+        } else {
+            log.warning(message);
+        }
+    }
+
     options = merge({
         stoponerror: false,
         stoponwarning: false,
         loglevel: 'error',
-        disabledIds: []
+        disabledIds: [],
+        reportFn: defaultReportFn
     }, options);
 
     log = new Log(options.loglevel);
@@ -48,28 +65,18 @@ function gulpBootlint(options) {
         var reporter = function (lint) {
             var isError = (lint.id[0] === 'E'),
                 isWarning = (lint.id[0] === 'W'),
-                lintId = (isError) ? gutil.colors.bgRed.white(lint.id) : gutil.colors.bgYellow.white(lint.id),
                 errorElementsAvailable = false;
 
             if (lint.elements) {
                 lint.elements.each(function (_, element) {
-                    var errorLocation = element.startLocation,
-                        message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;
-                    if (isError) {
-                        log.error(message);
-                    } else {
-                        log.warning(message);
+                    if(options.reportFn){
+                    options.reportFn(file, lint, isError, isWarning, element.startLocation);
                     }
                     errorElementsAvailable = true;
                 });
             }
-            if (!errorElementsAvailable) {
-                var message = file.path + ': ' + lintId + ' ' + lint.message;
-                if (isError) {
-                    log.error(message);
-                } else {
-                    log.warning(message);
-                }
+            if (!errorElementsAvailable && options.reportFn) {
+                options.reportFn(file, lint, isError, isWarning, null);
             }
 
             if (isError) {

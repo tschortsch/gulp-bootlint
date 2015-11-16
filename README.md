@@ -60,6 +60,12 @@ Defines which log messages should be printed to `stdout`.
 
 Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as `Strings`) to explicitly ignore.
 
+### options.reportFn
+
+* Type: `Function(file, lint, isError, isWarning, errorLocation){}`
+
+A function that will log out the lint errors to the console. Only use this if you want to customize how the lint errors are reported
+
 ### Example of options usage:
 
 ```javascript
@@ -72,7 +78,16 @@ gulp.task('bootlint', function() {
             stoponerror: true,
             stoponwarning: true,
             loglevel: debug,
-            disabledIds: ['W009', 'E007']
+            disabledIds: ['W009', 'E007'],
+            reportFn: function(file, lint, isError, isWarning, errorLocation){
+                var message = (isError) ? "ERROR! - " : "WARN! - ";
+                if (errorLocation) {
+                    message += file.path + ' (line:' + (errorLocation.line + 1) + ', col:' + (errorLocation.column + 1) + ') [' + lint.id + '] ' + lint.message;
+                } else {
+                    message += file.path + ': ' + lintId + ' ' + lint.message;
+                }
+                console.log(message);
+            }
         }));
 });
 ```

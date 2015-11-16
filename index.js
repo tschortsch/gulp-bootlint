@@ -22,6 +22,15 @@ function gulpBootlint(options) {
         hasWarning = false,
         log, stream;
 
+    /**
+     * Reporter function for linting errors and warnings.
+     *
+     * @param file Current file object .
+     * @param lint Current linting error.
+     * @param isError True if this is an error.
+     * @param isWarning True if this is a warning.
+     * @param errorLocation Error location object.
+     */
     var defaultReportFn = function(file, lint, isError, isWarning, errorLocation) {
         var lintId = (isError) ? gutil.colors.bgRed.white(lint.id) : gutil.colors.bgYellow.white(lint.id);
         var message = "";
@@ -38,7 +47,14 @@ function gulpBootlint(options) {
         }
     };
 
-    var defaultSummaryReportFn = function(errorCount, warningCount, file){
+    /**
+     * Reporter function for linting summary.
+     *
+     * @param file Current file object.
+     * @param errorCount Total count of errors in file.
+     * @param warningCount Total count of warnings in file.
+     */
+    var defaultSummaryReportFn = function(file, errorCount, warningCount) {
         if (errorCount > 0 || warningCount > 0) {
             var message = '';
             if (errorCount > 0) {
@@ -117,7 +133,7 @@ function gulpBootlint(options) {
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
         if(options.summaryReportFn){
-            options.summaryReportFn(errorCount, warningCount, file);
+            options.summaryReportFn(file, errorCount, warningCount);
         }
 
         return cb(null, file);

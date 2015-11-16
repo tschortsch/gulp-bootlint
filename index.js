@@ -21,7 +21,7 @@ function gulpBootlint(options) {
     var hasError = false,
         hasWarning = false,
         log, stream;
-
+    
     options = merge({
         stoponerror: false,
         stoponwarning: false,
@@ -55,7 +55,7 @@ function gulpBootlint(options) {
                 lint.elements.each(function (_, element) {
                     var errorLocation = element.startLocation,
                         message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;
-                    if(isError) {
+                    if (isError) {
                         log.error(message);
                     } else {
                         log.warning(message);
@@ -65,18 +65,18 @@ function gulpBootlint(options) {
             }
             if (!errorElementsAvailable) {
                 var message = file.path + ': ' + lintId + ' ' + lint.message;
-                if(isError) {
+                if (isError) {
                     log.error(message);
                 } else {
                     log.warning(message);
                 }
             }
 
-            if(isError) {
+            if (isError) {
                 ++errorCount;
                 hasError = true;
             }
-            if(isWarning) {
+            if (isWarning) {
                 ++warningCount;
                 hasWarning = true;
             }
@@ -88,15 +88,27 @@ function gulpBootlint(options) {
         file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
-        if(errorCount > 0 || warningCount > 0) {
-            log.notice(gutil.colors.red(errorCount + ' lint error(s) and ' + warningCount + ' lint warning(s) found in file ' + file.path));
+        if (errorCount > 0 || warningCount > 0) {
+            var str = '';
+            if (errorCount > 0) {
+                str += gutil.colors.red(errorCount + ' lint ' + (errorCount === 1 ? 'error' : 'errors'));
+            }
+
+            if (warningCount > 0) {
+                if (errorCount > 0) {
+                    str += ' and ';
+                }
+                str += gutil.colors.yellow(warningCount + ' lint ' + (warningCount === 1 ? 'warning' : 'warnings'));
+            }
+            str += ' found in file ' + file.path;
+            log.notice(str);
         } else {
             log.info(gutil.colors.green(file.path + ' is lint free!'));
         }
 
         return cb(null, file);
-    }, function(cb) {
-        if((hasError && options.stoponerror) || (hasWarning && options.stoponwarning)) {
+    }, function (cb) {
+        if ((hasError && options.stoponerror) || (hasWarning && options.stoponwarning)) {
             this.emit('error', new PluginError(PLUGIN_NAME, 'Lint errors found!'));
         }
 

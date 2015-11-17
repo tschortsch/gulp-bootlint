@@ -14,4 +14,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-    node: '0.12'
+    node: '5.0'

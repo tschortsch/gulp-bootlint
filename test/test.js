@@ -55,6 +55,8 @@ describe('gulp-bootlint', function() {
             stream.on('data', function(file) {
                 should.exist(file);
                 should.exist(file.bootlint);
+                file.bootlint.issues.should.be.instanceof(Array);
+                file.bootlint.issues.should.have.length(0);
                 should.equal(file.bootlint.success, true);
             });
 
@@ -75,7 +77,8 @@ describe('gulp-bootlint', function() {
                 should.exist(file.bootlint.success);
                 file.bootlint.success.should.equal(false);
                 should.exist(file.bootlint.issues);
-                file.bootlint.issues.length.should.equal(1);
+                file.bootlint.issues.should.be.instanceof(Array);
+                file.bootlint.issues.should.have.length(1);
                 file.bootlint.issues[0].id.should.equal('E001');
             });
             stream.once('end', function() {
@@ -93,6 +96,7 @@ describe('gulp-bootlint', function() {
                 });
 
             stream.on('error', function( err ) {
+                err.message.should.equal('Lint errors found!');
                 done();
             });
 
@@ -148,6 +152,7 @@ describe('gulp-bootlint', function() {
                 });
 
             stream.on('error', function( err ) {
+                err.message.should.equal('Lint errors found!');
                 done();
             });
 
@@ -178,11 +183,15 @@ describe('gulp-bootlint', function() {
         it('should use own report function', function(done) {
             var lintResults = {
                 file: null,
-                isError: false
+                lint: null,
+                isError: false,
+                isWarning: false
             };
             var myReportFn = function(file, lint, isError, isWarning, errorLocation) {
                 lintResults.file = file;
+                lintResults.lint = lint;
                 lintResults.isError = isError;
+                lintResults.isWarning = isWarning;
             };
             var file = getFile('fixtures/error-bootstrap.html'),
                 stream = bootlintPlugin({
@@ -191,7 +200,10 @@ describe('gulp-bootlint', function() {
 
             stream.on('data', function(file) {
                 should.equal(lintResults.file, file);
+                should.exist(lintResults.lint);
+                should.equal(lintResults.lint.id, 'E001');
                 should.equal(lintResults.isError, true);
+                should.equal(lintResults.isWarning, false);
             });
 
             stream.once('end', function() {

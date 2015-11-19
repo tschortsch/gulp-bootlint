@@ -48,8 +48,8 @@ Stops the gulp task if there are warnings in the linted file.
 ### options.loglevel
 
 * Type: `String`
-* Default: `error`
-* Options: `emergency`, `alert`, `critical`, `error`, `warning`, `notice`, `info`, `debug`
+* Default: `'error'`
+* Options: `'emergency'`, `'alert'`, `'critical'`, `'error'`, `'warning'`, `'notice'`, `'info'`, `'debug'`
 
 Defines which log messages should be printed to `stdout`.
 

@@ -19,6 +19,7 @@
     "index.js"
   ],
   "scripts": {
+    "pretest": "jshint *.js test/*.js",
     "test": "mocha"
   },
   "keywords": [
@@ -42,6 +43,7 @@
     "through2": "^2.0.0"
   },
   "devDependencies": {
+    "jshint": "^2.8.0",
     "mocha": "^2.3.4",
     "should": "^7.1.1"
   },
@@ -49,5 +51,8 @@
   "bugs": {
     "url": "https://github.com/tschortsch/gulp-bootlint/issues"
   },
-  "homepage": "https://github.com/tschortsch/gulp-bootlint"
+  "homepage": "https://github.com/tschortsch/gulp-bootlint",
+  "jshintConfig": {
+    "node": true
+  }
 }

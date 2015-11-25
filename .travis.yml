@@ -10,7 +10,7 @@ deploy:
   provider: npm
   email: juerg.hunziker@gmail.com
   api_key:
-    secure: M4I35T8twToL0Tf+xF5F3Jvz8QUzyTlSTzoTTIN34ujGrZrRw+mob2Z9WfRDbiEQDtmkRiCU+jMrp8O+y0N35blLsxXrE6GuG5wneSA7wMkuj1pfnX0hGgb5gjBm3qdr2SMQWKwJLg6booSaI4mth3hMqzAn0TI6P+RbOAxlX74=
+    secure: pXo8DFRzbxbg+34Y7rOacbMGjvwUKxv6IalCaGgOSfPnjFhXMw5Egln9/do2uWuTOm8RBqAXKlnkpH6o/eXw5Rub/yLV4kt41g2v++iMnON6kJx6yGynVdY0E7nog1VyqEtwdq5NTQ3PkxASJI+r7mHNBHg8vEbg82beQYgMjlQ=
   on:
     tags: true
     all_branches: true

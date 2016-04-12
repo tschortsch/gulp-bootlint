@@ -5,6 +5,7 @@ node_js:
 - '4.0'
 - '4.1'
 - '5.0'
+- '5.1'
 sudo: false
 deploy:
   provider: npm
@@ -14,4 +15,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-    node: '5.0'
+    node: '5.1'

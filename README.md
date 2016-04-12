@@ -137,4 +137,4 @@ gulp.task('bootlint', function() {
 
 ## License
 
-Copyright (c) 2015 Jürg Hunziker. Licensed under the MIT License.
+Copyright (c) 2016 Jürg Hunziker. Licensed under the MIT License.

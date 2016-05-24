@@ -80,7 +80,8 @@ function gulpBootlint(options) {
         loglevel: 'error',
         disabledIds: [],
         reportFn: defaultReportFn,
-        summaryReportFn: defaultSummaryReportFn
+        summaryReportFn: defaultSummaryReportFn,
+        issues: []
     }, options);
 
     log = new Log(options.loglevel);
@@ -124,12 +125,10 @@ function gulpBootlint(options) {
                 ++warningCount;
                 hasWarning = true;
             }
-            file.bootlint.success = false;
-            file.bootlint.issues.push(lint);
+            options.issues.push(lint);
         };
 
         log.info(gutil.colors.gray('Linting file ' + file.path));
-        file.bootlint = { success: true, issues: [] };
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
         if(options.summaryReportFn){
@@ -138,8 +137,11 @@ function gulpBootlint(options) {
 
         return cb(null, file);
     }, function (cb) {
-        if ((hasError && options.stoponerror) || (hasWarning && options.stoponwarning)) {
+        if (hasError && options.stoponerror ) {
             this.emit('error', new PluginError(PLUGIN_NAME, 'Lint errors found!'));
+        }
+        if (hasWarning && options.stoponwarning) {
+            this.emit('warning', new PluginError(PLUGIN_NAME, 'Lint warnings found!'));
         }
 
         return cb();

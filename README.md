@@ -60,6 +60,15 @@ Defines which log messages should be printed to `stdout`.
 
 Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as `Strings`) to explicitly ignore.
 
+### options.issues
+
+* Type: `Array` of LintWarning and LintError objects
+* Default: `[]`
+
+All found issues (Objects of type `LintWarning` and `LintError`) are stored in this array.
+You can access and use them after executing this module.
+The classes `LintWarning` and `LintError` are described here https://github.com/twbs/bootlint#api-documentation.
+
 ### options.reportFn
 
 * Type: `Function`
@@ -91,12 +100,14 @@ var gulp = require('gulp');
 var bootlint  = require('gulp-bootlint');
 
 gulp.task('bootlint', function() {
+    var fileIssues = [];
     return gulp.src('./index.html')
         .pipe(bootlint({
             stoponerror: true,
             stoponwarning: true,
             loglevel: 'debug',
             disabledIds: ['W009', 'E007'],
+            issues: fileIssues,
             reportFn: function(file, lint, isError, isWarning, errorLocation) {
                 var message = (isError) ? "ERROR! - " : "WARN! - ";
                 if (errorLocation) {
@@ -119,6 +130,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
+* 2016-05-24 - v0.8.0: Possibility to provide array where found issues are stored
 * 2016-04-12 - v0.7.2: Bumped dependency versions
 * 2015-11-25 - v0.7.1: Updated Bootlint to v0.14.2
 * 2015-11-16 - v0.7.0: Updated Bootlint to v0.14.1 / Added options to define reporters (thx @chrismbarr) / Bumped dependency versions

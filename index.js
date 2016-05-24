@@ -79,9 +79,9 @@ function gulpBootlint(options) {
         stoponwarning: false,
         loglevel: 'error',
         disabledIds: [],
+        issues: [],
         reportFn: defaultReportFn,
-        summaryReportFn: defaultSummaryReportFn,
-        issues: []
+        summaryReportFn: defaultSummaryReportFn
     }, options);
 
     log = new Log(options.loglevel);

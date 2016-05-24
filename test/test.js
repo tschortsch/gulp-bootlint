@@ -50,14 +50,14 @@ describe('gulp-bootlint', function() {
 
         it('should lint valid file', function(done) {
             var file = getFile('fixtures/valid-bootstrap.html'),
-                stream = bootlintPlugin();
+                issues = [],
+                stream = bootlintPlugin({
+                    issues: issues
+                });
 
             stream.on('data', function(file) {
                 should.exist(file);
-                should.exist(file.bootlint);
-                file.bootlint.issues.should.be.instanceof(Array);
-                file.bootlint.issues.should.have.length(0);
-                should.equal(file.bootlint.success, true);
+                issues.length.should.equal(0);
             });
 
             stream.once('end', function() {
@@ -70,18 +70,70 @@ describe('gulp-bootlint', function() {
 
         it('should find errors in invalid file', function(done) {
             var file = getFile('fixtures/error-bootstrap.html'),
-                stream = bootlintPlugin();
+                issues = [],
+                stream = bootlintPlugin({
+                    issues: issues
+                });
 
             stream.on('data', function(file) {
-                should.exist(file.bootlint);
-                should.exist(file.bootlint.success);
-                file.bootlint.success.should.equal(false);
-                should.exist(file.bootlint.issues);
-                file.bootlint.issues.should.be.instanceof(Array);
-                file.bootlint.issues.should.have.length(1);
-                file.bootlint.issues[0].id.should.equal('E001');
+                issues.length.should.equal(1);
+                issues[0].id.should.equal('E001');
             });
             stream.once('end', function() {
+                done();
+            });
+
+            stream.write(file);
+            stream.end();
+        });
+
+        it('should find warnings in invalid file', function(done) {
+            var file = getFile('fixtures/warning-bootstrap.html'),
+                issues = [],
+                stream = bootlintPlugin({
+                    issues: issues
+                });
+
+            stream.on('data', function(file) {
+                issues.length.should.equal(1);
+                issues[0].id.should.equal('W009');
+            });
+            stream.once('end', function() {
+                done();
+            });
+
+            stream.write(file);
+            stream.end();
+        });
+
+        it('should find errors and warnings in invalid file', function(done) {
+            var file = getFile('fixtures/error_warning-bootstrap.html'),
+                issues = [],
+                stream = bootlintPlugin({
+                    issues: issues
+                });
+
+            stream.on('data', function(file) {
+                issues.length.should.equal(2);
+                issues[0].id.should.equal('E001');
+                issues[1].id.should.equal('W009');
+            });
+            stream.once('end', function() {
+                done();
+            });
+
+            stream.write(file);
+            stream.end();
+        });
+
+        it('should stop on warnings', function(done) {
+            var file = getFile('fixtures/warning-bootstrap.html'),
+                stream = bootlintPlugin({
+                    stoponwarning: true
+                });
+
+            stream.on('warning', function( err ) {
+                err.message.should.equal('Lint warnings found!');
                 done();
             });
 
@@ -104,51 +156,11 @@ describe('gulp-bootlint', function() {
             stream.end();
         });
 
-        it('should find warnings in invalid file', function(done) {
-            var file = getFile('fixtures/warning-bootstrap.html'),
-                stream = bootlintPlugin();
-
-            stream.on('data', function(file) {
-                should.exist(file.bootlint);
-                should.exist(file.bootlint.success);
-                file.bootlint.success.should.equal(false);
-                should.exist(file.bootlint.issues);
-                file.bootlint.issues.length.should.equal(1);
-                file.bootlint.issues[0].id.should.equal('W009');
-            });
-            stream.once('end', function() {
-                done();
-            });
-
-            stream.write(file);
-            stream.end();
-        });
-
-        it('should find errors and warnings in invalid file', function(done) {
+        it('should stop if there are errors and warnings', function(done) {
             var file = getFile('fixtures/error_warning-bootstrap.html'),
-                stream = bootlintPlugin();
-
-            stream.on('data', function(file) {
-                should.exist(file.bootlint);
-                should.exist(file.bootlint.success);
-                file.bootlint.success.should.equal(false);
-                should.exist(file.bootlint.issues);
-                file.bootlint.issues.length.should.equal(2);
-                file.bootlint.issues[0].id.should.equal('E001');
-                file.bootlint.issues[1].id.should.equal('W009');
-            });
-            stream.once('end', function() {
-                done();
-            });
-
-            stream.write(file);
-            stream.end();
-        });
-
-        it('should stop on warnings', function(done) {
-            var file = getFile('fixtures/warning-bootstrap.html'),
                 stream = bootlintPlugin({
-                    stoponwarning: true
+                    stoponwarning: true,
+                    stoponerror: true
                 });
 
             stream.on('error', function( err ) {
@@ -160,16 +172,16 @@ describe('gulp-bootlint', function() {
             stream.end();
         });
 
-        it('should not fail on disabled error ids', function(done) {
-            var file = getFile('fixtures/error-bootstrap.html'),
+        it('should not fail on disabled ids', function(done) {
+            var file = getFile('fixtures/error_warning-bootstrap.html'),
+                issues = [],
                 stream = bootlintPlugin({
-                    disabledIds: ['E001']
+                    disabledIds: ['E001', 'W009'],
+                    issues: issues
                 });
 
             stream.on('data', function(file) {
-                should.exist(file);
-                should.exist(file.bootlint);
-                should.equal(file.bootlint.success, true);
+                issues.length.should.equal(0);
             });
 
             stream.once('end', function() {

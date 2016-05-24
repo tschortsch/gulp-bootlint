@@ -62,11 +62,12 @@ Array of [bootlint problem ID codes](https://github.com/twbs/bootlint/wiki) (as 
 
 ### options.issues
 
-* Type: `Array` of LintWarning and LintError objects
+* Type: `Array` of `LintWarning` and `LintError` objects
 * Default: `[]`
 
 All found issues (Objects of type `LintWarning` and `LintError`) are stored in this array.
 You can access and use them after executing this module.
+
 The classes `LintWarning` and `LintError` are described here https://github.com/twbs/bootlint#api-documentation.
 
 ### options.reportFn

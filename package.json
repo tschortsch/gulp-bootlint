@@ -44,8 +44,8 @@
   },
   "devDependencies": {
     "jshint": "^2.9.2",
-    "mocha": "^2.5.2",
-    "should": "^8.4.0"
+    "mocha": "^2.5.3",
+    "should": "^9.0.0"
   },
   "readmeFilename": "README.md",
   "bugs": {

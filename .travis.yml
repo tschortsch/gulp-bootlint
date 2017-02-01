@@ -1,11 +1,11 @@
 language: node_js
 node_js:
-- '0.11'
-- '0.12'
 - '4.0'
 - '4.1'
 - '5.0'
 - '5.1'
+- '6'
+- '6.1'
 sudo: false
 deploy:
   provider: npm
@@ -15,4 +15,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-    node: '5.1'
+    node: '6.1'

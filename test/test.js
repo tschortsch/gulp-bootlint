@@ -6,6 +6,9 @@
  * Licensed under the MIT license.
  */
 
+/*eslint no-unused-vars: "off"*/
+/*global describe, it*/
+
 var bootlintPlugin = require('../');
 var should = require('should');
 var gutil = require('gulp-util');
@@ -75,7 +78,7 @@ describe('gulp-bootlint', function() {
                     issues: issues
                 });
 
-            stream.on('data', function(file) {
+            stream.on('data', function() {
                 issues.length.should.equal(1);
                 issues[0].id.should.equal('E001');
             });

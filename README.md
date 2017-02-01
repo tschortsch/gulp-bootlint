@@ -134,6 +134,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
+* 2017-02-01 - v0.8.1: Bumped dependency versions
 * 2016-05-24 - v0.8.0: Possibility to provide array where found issues are stored
 * 2016-04-12 - v0.7.2: Bumped dependency versions
 * 2015-11-25 - v0.7.1: Updated Bootlint to v0.14.2

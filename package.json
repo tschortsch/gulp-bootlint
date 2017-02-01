@@ -19,7 +19,7 @@
     "index.js"
   ],
   "scripts": {
-    "pretest": "jshint *.js test/*.js",
+    "pretest": "./node_modules/.bin/eslint *.js test/*.js",
     "test": "mocha"
   },
   "keywords": [
@@ -43,7 +43,7 @@
     "through2": "^2.0.3"
   },
   "devDependencies": {
-    "jshint": "^2.9.4",
+    "eslint": "^3.14.1",
     "mocha": "^3.2.0",
     "should": "^11.2.0"
   },

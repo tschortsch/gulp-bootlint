@@ -33,7 +33,7 @@ function gulpBootlint(options) {
      */
     var defaultReportFn = function(file, lint, isError, isWarning, errorLocation) {
         var lintId = (isError) ? gutil.colors.bgRed.white(lint.id) : gutil.colors.bgYellow.white(lint.id);
-        var message = "";
+        var message = '';
         if (errorLocation) {
             message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;
         } else {

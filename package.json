@@ -36,16 +36,18 @@
     "checker"
   ],
   "dependencies": {
+    "ansi-colors": "^1.1.0",
     "bootlint": "^0.14.2",
-    "gulp-util": "^3.0.8",
     "log": "^1.4.0",
     "merge": "^1.2.0",
+    "plugin-error": "^1.0.1",
     "through2": "^2.0.3"
   },
   "devDependencies": {
     "eslint": "^3.14.1",
     "mocha": "^3.2.0",
-    "should": "^11.2.0"
+    "should": "^11.2.0",
+    "vinyl": "^2.1.0"
   },
   "readmeFilename": "README.md",
   "bugs": {

@@ -11,13 +11,13 @@
 
 var bootlintPlugin = require('../');
 var should = require('should');
-var gutil = require('gulp-util');
+var Vinyl = require('vinyl');
 var fs = require('fs');
 var path = require('path');
 
 var getFile = function(filePath) {
     var fullFilePath = './test/' + filePath;
-    return new gutil.File({
+    return new Vinyl({
         path: fullFilePath,
         cwd: './test/',
         base: path.dirname(fullFilePath),
@@ -37,7 +37,7 @@ describe('gulp-bootlint', function() {
                 should.exist(file.path);
                 should.exist(file.relative);
                 should.exist(file.contents);
-                file.path.should.equal('./test/fixtures/valid-bootstrap.html');
+                file.path.should.equal(path.normalize('./test/fixtures/valid-bootstrap.html'));
                 file.relative.should.equal('valid-bootstrap.html');
                 ++fileCount;
             });

@@ -134,6 +134,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
+* 2018-04-24 - v0.9.0: Replaced deprecated gulp-util (thanks to [TheDancingCode](https://github.com/TheDancingCode))
 * 2017-02-01 - v0.8.1: Bumped dependency versions
 * 2016-05-24 - v0.8.0: Possibility to provide array where found issues are stored
 * 2016-04-12 - v0.7.2: Bumped dependency versions

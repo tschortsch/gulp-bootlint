@@ -7,8 +7,8 @@
  */
 
 'use strict';
-var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
+var colors = require('ansi-colors');
+var PluginError = require('plugin-error');
 var through = require('through2');
 var Log = require('log');
 var merge = require('merge');
@@ -32,7 +32,7 @@ function gulpBootlint(options) {
      * @param errorLocation Error location object.
      */
     var defaultReportFn = function(file, lint, isError, isWarning, errorLocation) {
-        var lintId = (isError) ? gutil.colors.bgRed.white(lint.id) : gutil.colors.bgYellow.white(lint.id);
+        var lintId = (isError) ? colors.bgred(colors.white(lint.id)) : colors.bgyellow(colors.white(lint.id));
         var message = '';
         if (errorLocation) {
             message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;
@@ -58,19 +58,19 @@ function gulpBootlint(options) {
         if (errorCount > 0 || warningCount > 0) {
             var message = '';
             if (errorCount > 0) {
-                message += gutil.colors.red(errorCount + ' lint ' + (errorCount === 1 ? 'error' : 'errors'));
+                message += colors.red(errorCount + ' lint ' + (errorCount === 1 ? 'error' : 'errors'));
             }
 
             if (warningCount > 0) {
                 if (errorCount > 0) {
                     message += ' and ';
                 }
-                message += gutil.colors.yellow(warningCount + ' lint ' + (warningCount === 1 ? 'warning' : 'warnings'));
+                message += colors.yellow(warningCount + ' lint ' + (warningCount === 1 ? 'warning' : 'warnings'));
             }
             message += ' found in file ' + file.path;
             log.notice(message);
         } else {
-            log.info(gutil.colors.green(file.path + ' is lint free!'));
+            log.info(colors.green(file.path + ' is lint free!'));
         }
     };
 
@@ -128,7 +128,7 @@ function gulpBootlint(options) {
             options.issues.push(lint);
         };
 
-        log.info(gutil.colors.gray('Linting file ' + file.path));
+        log.info(colors.gray('Linting file ' + file.path));
         bootlint.lintHtml(file.contents.toString(), reporter, options.disabledIds);
 
         if(options.summaryReportFn){

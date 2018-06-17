@@ -8,7 +8,7 @@ A gulp wrapper for [Bootlint](https://github.com/twbs/bootlint), the HTML linter
 
 ## First steps
 
-If you are familiar with [gulp](http://gulpjs.com/) just install the plugin from [npm](https://npmjs.org/package/gulp-bootlint) with the following command:
+If you are familiar with [gulp](https://gulpjs.com/) just install the plugin from [npm](https://npmjs.org/package/gulp-bootlint) with the following command:
 
 ```
 npm install gulp-bootlint --save-dev

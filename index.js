@@ -32,7 +32,7 @@ function gulpBootlint(options) {
      * @param errorLocation Error location object.
      */
     var defaultReportFn = function(file, lint, isError, isWarning, errorLocation) {
-        var lintId = (isError) ? colors.bgred(colors.white(lint.id)) : colors.bgyellow(colors.white(lint.id));
+        var lintId = (isError) ? colors.bgRed(colors.white(lint.id)) : colors.bgYellow(colors.white(lint.id));
         var message = '';
         if (errorLocation) {
             message = file.path + ':' + (errorLocation.line + 1) + ':' + (errorLocation.column + 1) + ' ' + lintId + ' ' + lint.message;

@@ -8,7 +8,7 @@ A gulp wrapper for [Bootlint](https://github.com/twbs/bootlint), the HTML linter
 
 ## Requirements
 
-* Node >= 8.x
+* Node.js >= 8.x
 
 ## First steps
 

@@ -36,7 +36,7 @@
     "checker"
   ],
   "dependencies": {
-    "ansi-colors": "^3.2.4",
+    "ansi-colors": "^4.0.1",
     "bootlint": "^0.16.6",
     "log": "^1.4.0",
     "merge": "^1.2.1",

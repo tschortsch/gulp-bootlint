@@ -138,6 +138,7 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
+* 2019-XX-XX - v0.11.1: Bumped dependency versions
 * 2019-06-26 - v0.11.0
     * **Dropped support for Node.js versions <= 7**
     * Updated Bootlint to v0.16.6

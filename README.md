@@ -6,6 +6,10 @@
 
 A gulp wrapper for [Bootlint](https://github.com/twbs/bootlint), the HTML linter for Bootstrap projects.
 
+## Requirements
+
+* Node >= 8.x
+
 ## First steps
 
 If you are familiar with [gulp](https://gulpjs.com/) just install the plugin from [npm](https://npmjs.org/package/gulp-bootlint) with the following command:
@@ -134,7 +138,10 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
-* 2019-06-26 - v0.9.1: Updated Bootlint to v0.16.6 / Bumped dependency versions
+* 2019-06-26 - v0.10.0
+    * **Dropped support for Node.js versions <= 7**
+    * Updated Bootlint to v0.16.6
+    * Bumped dependency versions
 * 2018-04-24 - v0.9.0: Replaced deprecated gulp-util (thanks to [TheDancingCode](https://github.com/TheDancingCode))
 * 2017-02-01 - v0.8.1: Bumped dependency versions
 * 2016-05-24 - v0.8.0: Possibility to provide array where found issues are stored

@@ -138,10 +138,12 @@ gulp.task('bootlint', function() {
 
 ## Release History
 
-* 2019-06-26 - v0.10.0
+* 2019-06-26 - v0.11.0
     * **Dropped support for Node.js versions <= 7**
     * Updated Bootlint to v0.16.6
     * Bumped dependency versions
+* 2018-12-15 - v0.10.2: Bumped dependency versions
+* 2018-10-02 - v0.10.1: Updated bootlint to v0.15.1 / Bumped dependency versions
 * 2018-04-24 - v0.9.0: Replaced deprecated gulp-util (thanks to [TheDancingCode](https://github.com/TheDancingCode))
 * 2017-02-01 - v0.8.1: Bumped dependency versions
 * 2016-05-24 - v0.8.0: Possibility to provide array where found issues are stored

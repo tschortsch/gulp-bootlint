@@ -7,9 +7,10 @@
 var colors = require('ansi-colors');
 var PluginError = require('plugin-error');
 var through = require('through2');
-var Log = require('log');
 var merge = require('merge');
 var bootlint = require('bootlint');
+var log = require('log');
+require('log-node')(); // initialize log writer
 
 // consts
 var PLUGIN_NAME = 'gulp-bootlint';
@@ -17,7 +18,7 @@ var PLUGIN_NAME = 'gulp-bootlint';
 function gulpBootlint (options) {
   var hasError = false;
   var hasWarning = false;
-  var log, stream;
+  var stream;
 
   /**
    * Reporter function for linting errors and warnings.
@@ -74,14 +75,11 @@ function gulpBootlint (options) {
   options = merge({
     stoponerror: false,
     stoponwarning: false,
-    loglevel: 'error',
     disabledIds: [],
     issues: [],
     reportFn: defaultReportFn,
     summaryReportFn: defaultSummaryReportFn,
   }, options);
-
-  log = new Log(options.loglevel);
 
   // creating a stream through which each file will pass
   stream = through.obj(function (file, enc, cb) {

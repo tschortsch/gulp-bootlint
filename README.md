@@ -26,11 +26,11 @@ After installing the plugin you can create a new gulp task in your `gulpfile.js`
 
 ```javascript
 var gulp = require('gulp');
-var bootlint  = require('gulp-bootlint');
+var bootlint = require('gulp-bootlint');
 
 gulp.task('bootlint', function() {
-    return gulp.src('./index.html')
-        .pipe(bootlint());
+  return gulp.src('./index.html')
+    .pipe(bootlint());
 });
 ```
 
@@ -51,14 +51,6 @@ Stops the gulp task if there are errors in the linted file.
 * Default: `false`
 
 Stops the gulp task if there are warnings in the linted file.
-
-### options.loglevel
-
-* Type: `String`
-* Default: `'error'`
-* Options: `'emergency'`, `'alert'`, `'critical'`, `'error'`, `'warning'`, `'notice'`, `'info'`, `'debug'`
-
-Defines which log messages should be printed to `stdout`.
 
 ### options.disabledIds
 
@@ -105,40 +97,54 @@ If desired, this can be turned off entirely by setting `summaryReportFn: false`.
 
 ```javascript
 var gulp = require('gulp');
-var bootlint  = require('gulp-bootlint');
+var bootlint = require('gulp-bootlint');
 
-gulp.task('bootlint', function() {
-    var fileIssues = [];
-    return gulp.src('./index.html')
-        .pipe(bootlint({
-            stoponerror: true,
-            stoponwarning: true,
-            loglevel: 'debug',
-            disabledIds: ['W009', 'E007'],
-            issues: fileIssues,
-            reportFn: function(file, lint, isError, isWarning, errorLocation) {
-                var message = (isError) ? "ERROR! - " : "WARN! - ";
-                if (errorLocation) {
-                    message += file.path + ' (line:' + (errorLocation.line + 1) + ', col:' + (errorLocation.column + 1) + ') [' + lint.id + '] ' + lint.message;
-                } else {
-                    message += file.path + ': ' + lint.id + ' ' + lint.message;
-                }
-                console.log(message);
-            },
-            summaryReportFn: function(file, errorCount, warningCount) {
-                if (errorCount > 0 || warningCount > 0) {
-                    console.log("please fix the " + errorCount + " errors and "+ warningCount + " warnings in " + file.path);
-                } else {
-                    console.log("No problems found in "+ file.path);
-                }
-            }
-        }));
+gulp.task('bootlint', function () {
+  var fileIssues = [];
+  return gulp.src('./index.html')
+    .pipe(bootlint({
+      stoponerror: true,
+      stoponwarning: true,
+      disabledIds: ['W009', 'E007'],
+      issues: fileIssues,
+      reportFn: function (file, lint, isError, isWarning, errorLocation) {
+        var message = (isError) ? 'ERROR! - ' : 'WARN! - ';
+        if (errorLocation) {
+          message += file.path + ' (line:' + (errorLocation.line + 1) + ', col:' + (errorLocation.column + 1) + ') [' + lint.id + '] ' + lint.message;
+        } else {
+          message += file.path + ': ' + lint.id + ' ' + lint.message;
+        }
+        console.log(message);
+      },
+      summaryReportFn: function(file, errorCount, warningCount) {
+        if (errorCount > 0 || warningCount > 0) {
+          console.log('please fix the ' + errorCount + ' errors and ' + warningCount + ' warnings in ' + file.path);
+        } else {
+          console.log('No problems found in ' + file.path);
+        }
+      },
+    }));
 });
 ```
 
-## Release History
+## Log level
 
-* 2019-XX-XX - v0.11.1: Bumped dependency versions
+To set the log level please use the `LOG_LEVEL` environment variable before starting your gulp task:
+
+```
+$ LOG_LEVEL=error npm run gulp
+```
+
+Available log levels are listed here: https://github.com/medikoo/log#available-log-levels
+
+## Changelog
+
+* 2019-12-12 - v1.0.0
+    * Updated `bootlint` to v1.0.0
+    * Updated `log` package to v6.0.0
+    * Dropped `loglevel` option since it's not supported anymore by the new `log` package.
+      To set the log level please use the `LOG_LEVEL` environment variable before running your gulp task (see: https://github.com/tschortsch/gulp-bootlint#log-level).
+    * Bumped other dependency versions
 * 2019-06-26 - v0.11.0
     * **Dropped support for Node.js versions <= 7**
     * Updated Bootlint to v0.16.6

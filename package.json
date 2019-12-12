@@ -10,7 +10,7 @@
   "author": {
     "name": "Juerg Hunziker",
     "email": "juerg.hunziker@gmail.com",
-    "url": "http://juerghunziker.ch"
+    "url": "https://juerghunziker.ch"
   },
   "engines": {
     "node": ">=8"

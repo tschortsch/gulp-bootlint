@@ -46,9 +46,9 @@
     "through2": "^3.0.1"
   },
   "devDependencies": {
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "eslint-config-gulp": "^3.0.1",
-    "mocha": "^6.2.2",
+    "mocha": "^7.1.0",
     "should": "^13.2.3",
     "vinyl": "^2.2.0"
   },

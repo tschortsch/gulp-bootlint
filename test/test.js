@@ -6,9 +6,6 @@
  * Licensed under the MIT license.
  */
 
-/* eslint no-unused-vars: "off" */
-/* global describe, it */
-
 var bootlintPlugin = require('../');
 var should = require('should');
 var Vinyl = require('vinyl');

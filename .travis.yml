@@ -7,6 +7,8 @@ node_js:
 - '12'
 - '13'
 - '14'
+- '15'
+- '16'
 sudo: false
 deploy:
   provider: npm
@@ -16,4 +18,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-    node: '10'
+    node: '14'

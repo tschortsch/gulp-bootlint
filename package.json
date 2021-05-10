@@ -13,7 +13,7 @@
     "url": "https://juerghunziker.ch"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "files": [
     "index.js"

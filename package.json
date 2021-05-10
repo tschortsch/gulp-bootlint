@@ -1,6 +1,6 @@
 {
   "name": "gulp-bootlint",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A gulp wrapper for Bootlint, the HTML linter for Bootstrap projects",
   "license": "MIT",
   "repository": {

@@ -1,8 +1,7 @@
 # gulp-bootlint
+
 [![npm version](https://badge.fury.io/js/gulp-bootlint.svg)](https://badge.fury.io/js/gulp-bootlint)
-[![Build Status](https://travis-ci.org/tschortsch/gulp-bootlint.svg?branch=master)](https://travis-ci.org/tschortsch/gulp-bootlint)
-[![dependencies Status](https://david-dm.org/tschortsch/gulp-bootlint/status.svg)](https://david-dm.org/tschortsch/gulp-bootlint)
-[![devDependencies Status](https://david-dm.org/tschortsch/gulp-bootlint/dev-status.svg)](https://david-dm.org/tschortsch/gulp-bootlint?type=dev)
+[![Build Status](https://github.com/tschortsch/gulp-bootlint/workflows/Lint%20Test%20Deploy/badge.svg?branch=master)](https://github.com/tschortsch/gulp-bootlint/actions?query=workflow%3A%22Lint+Test+Deploy%22+branch%3Amaster)
 
 A gulp wrapper for [Bootlint](https://github.com/twbs/bootlint), the HTML linter for Bootstrap projects.
 

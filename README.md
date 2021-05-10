@@ -8,7 +8,7 @@ A gulp wrapper for [Bootlint](https://github.com/twbs/bootlint), the HTML linter
 
 ## Requirements
 
-* Node.js >= 8.x
+* Node.js >= 10.x
 
 ## First steps
 
@@ -139,6 +139,20 @@ Available log levels are listed here: https://github.com/medikoo/log#available-l
 
 ## Changelog
 
+* 2021-05-10 - v1.1.1
+  * **Dropped support for Node.js versions < 10**
+  * Updated `merge` package to v2.1.1
+  * Updated `through2` package to v4.0.2
+  * Bumped dependency versions:
+    * Updated `eslint` package to v7.26.0
+    * Updated `eslint-config-gulp` package to v5.0.1
+    * Updated `mocha` package to v8.4.0
+    * Updated `vinyl` package to v2.2.1
+* 2020-05-07 - v1.1.0
+  * Updated `bootlint` to v1.1.0
+  * Bumped other dependency versions:
+    * Updated `eslint-config-gulp` package to v4.0.0
+    * Updated `mocha` package to v7.1.2
 * 2019-12-12 - v1.0.0
     * Updated `bootlint` to v1.0.0
     * Updated `log` package to v6.0.0
@@ -146,7 +160,7 @@ Available log levels are listed here: https://github.com/medikoo/log#available-l
       To set the log level please use the `LOG_LEVEL` environment variable before running your gulp task (see: https://github.com/tschortsch/gulp-bootlint#log-level).
     * Bumped other dependency versions
 * 2019-06-26 - v0.11.0
-    * **Dropped support for Node.js versions <= 7**
+    * **Dropped support for Node.js versions < 8**
     * Updated Bootlint to v0.16.6
     * Bumped dependency versions
 * 2018-12-15 - v0.10.2: Bumped dependency versions

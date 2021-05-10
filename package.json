@@ -19,7 +19,6 @@
     "index.js"
   ],
   "scripts": {
-    "pretest": "npm run lint",
     "lint": "eslint *.js test/*.js",
     "test": "mocha"
   },
